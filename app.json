@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "GSP++",
+    "slug": "gsp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+
+    "android": {
+      "package": "com.mahtab.gsp",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "monochromeImage": "./assets/adaptive-icon-monochrome.png",
+        "backgroundColor": "#E6F4FE"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+
+    "ios": {
+      "supportsTablet": true
+    },
+
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+
+    "plugins": [
+      "expo-secure-store",
+      "expo-font",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#E6F4FE",
+          "image": "./assets/splash-icon.png",
+          "dark": {
+            "backgroundColor": "#E6F4FE",
+            "image": "./assets/splash-icon-dark.png"
+          },
+          "imageWidth": 200
+        }
+      ]
+    ],
+
+    "extra": {
+      "eas": {
+        "projectId": "e8148007-a49a-4853-b869-fcf29e349ef1"
+      }
+    }
+  }
+}
