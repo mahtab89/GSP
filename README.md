@@ -91,4 +91,4 @@ GSP++ is an independent application and is not affiliated with or officially end
 
 ## License
 
-This project is open source. See the **[LICENSE](https://github.com/mahtab89/GSP/blob/main/LICENSE) file for the license and terms of use.
+This project is open source. See the **[LICENSE](https://github.com/mahtab89/GSP/blob/main/LICENSE)** file for the license and terms of use.
