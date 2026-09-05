@@ -92,3 +92,11 @@ GSP++ is an independent application and is not affiliated with or officially end
 ## License
 
 This project is open source. See the **[LICENSE](https://github.com/mahtab89/GSP/blob/main/LICENSE)** file for the license and terms of use.
+
+
+## Author
+
+**Mahtab Yasin** – Independent developer and creator of GSP++.
+
+- Instagram: [@_mahtab_yasin_](https://instagram.com/_mahtab_yasin_)
+- Email: [mdmahtabyasin@gmail.com](mailto:mdmahtabyasin@gmail.com)
