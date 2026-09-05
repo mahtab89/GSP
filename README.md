@@ -54,6 +54,12 @@ The app connects directly to the university portal using your credentials, parse
 
 GSP++ is currently under active development. The application is not yet available on the Google Play Store and is being tested before its first public release.
 
+## Download
+
+You can download the latest APK from the **[Releases page](https://github.com/mahtab89/GSP/releases)**.
+
+**⚠️ Play Protect Warning:** Since this app isn't on the Play Store (I don't have $25 for a developer account 😅), Google Play Protect might flag it as "harmful" or "unrecognized." This is a false positive—the app is completely open source and connects directly to your university portal. Just tap "More info" → "Install anyway" or scan it with your preferred antivirus if you're paranoid. The source code is right here for you to audit.
+
 ## Open Source
 
 GSP++ is open source and contributions are welcome. If you would like to contribute, you can:
