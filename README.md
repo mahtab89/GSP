@@ -14,6 +14,12 @@ GSP++ is a mobile attendance application built with React Native and Expo. It al
 - **Offline Support** – Cached data available when network is unavailable
 - **Last Fetched Timestamp** – See when data was last updated
 
+## Download
+
+You can download the latest APK from the **[Releases page](https://github.com/mahtab89/GSP/releases)**.
+
+**⚠️ Play Protect Warning:** Since this app isn't on the Play Store (I don't have $25 for a developer account 😅), Google Play Protect might flag it as "harmful" or "unrecognized." This is a false positive—the app is completely open source and connects directly to your university portal. Just tap "More info" → "Install anyway" or scan it with your preferred antivirus if you're paranoid. The source code is right here for you to audit.
+
 ## Tech Stack
 
 - **React Native** – Cross-platform mobile framework
@@ -53,12 +59,6 @@ The app connects directly to the university portal using your credentials, parse
 ## Status
 
 GSP++ is currently under active development. The application is not yet available on the Google Play Store and is being tested before its first public release.
-
-## Download
-
-You can download the latest APK from the **[Releases page](https://github.com/mahtab89/GSP/releases)**.
-
-**⚠️ Play Protect Warning:** Since this app isn't on the Play Store (I don't have $25 for a developer account 😅), Google Play Protect might flag it as "harmful" or "unrecognized." This is a false positive—the app is completely open source and connects directly to your university portal. Just tap "More info" → "Install anyway" or scan it with your preferred antivirus if you're paranoid. The source code is right here for you to audit.
 
 ## Open Source
 
