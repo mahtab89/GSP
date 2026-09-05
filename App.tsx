@@ -99,7 +99,6 @@ function AppContent() {
   }, [fontsLoaded]);
 
   const initializeApp = async () => {
-    // Check if credentials are stored
     const storedCredentials = await getCredentials();
 
     if (!storedCredentials) {
@@ -109,14 +108,10 @@ function AppContent() {
     }
 
     setCredentials(storedCredentials);
-
-    // Wrap entire initialization in 10s timeout
     const initWithTimeout = async () => {
-      // Login and get all data at once
       const client = new PortalClient();
       const { profile, attendance, availableSemesters } = await client.login(storedCredentials);
       
-      // Fetch remaining semesters attendance
       const allAttendance: Record<number, AttendanceData> = { [attendance.semester]: attendance };
       for (const sem of availableSemesters) {
         if (sem !== attendance.semester) {
@@ -139,7 +134,6 @@ function AppContent() {
       return;
     } catch (err: unknown) {
       if (err instanceof TimeoutError) {
-        // Timeout - fall back to cached data silently
         try {
           const [cachedAttendanceResult, cachedProfileResult] = await Promise.all([
             getAttendance(CURRENT_SEMESTER),
@@ -151,7 +145,6 @@ function AppContent() {
           }
           if (cachedProfileResult.profile) setProfile(cachedProfileResult.profile);
         } catch {
-          // Ignore cache errors
         }
         setAppState("app");
         setLoading(false);
@@ -161,7 +154,6 @@ function AppContent() {
         setIsBlocked(true);
         setAppState("app");
       } else if (storedCredentials) {
-        // Load cached data before showing app
         try {
           const [cachedAttendanceResult, cachedProfileResult] = await Promise.all([
             getAttendance(CURRENT_SEMESTER),
@@ -173,7 +165,6 @@ function AppContent() {
           }
           if (cachedProfileResult.profile) setProfile(cachedProfileResult.profile);
         } catch {
-          // Ignore cache errors
         }
         setAppState("app");
       } else {
@@ -214,12 +205,10 @@ function AppContent() {
     try {
       const creds: Credentials = { username: rollNo, password };
 
-      // Test credentials by fetching data
       const client = new PortalClient();
 
       const { profile, attendance, availableSemesters } = await client.login(creds);
 
-      // Fetch remaining semesters attendance
       const allAttendance: Record<number, AttendanceData> = { [attendance.semester]: attendance };
       for (const sem of availableSemesters) {
         if (sem !== attendance.semester) {
@@ -228,7 +217,6 @@ function AppContent() {
         }
       }
 
-      // Save credentials securely
       await saveCredentials(creds);
 
       setCredentials(creds);
@@ -264,11 +252,9 @@ function AppContent() {
 
       await client.login(credentials);
 
-      // Only refresh the current semester
       const currentSemester = attendance.semester;
       const data = await client.getAttendance(currentSemester);
 
-      // Update state
       setAttendance(data);
       setAttendanceBySemester((current) => ({
         ...current,
@@ -279,12 +265,10 @@ function AppContent() {
       if (isBlockedError(err)) {
         setIsBlocked(true);
       } else {
-        // Load cached attendance on refresh failure
         try {
           const cached = await getAttendance(CURRENT_SEMESTER);
           if (cached.attendance) setAttendance(cached.attendance);
         } catch {
-          // Ignore cache errors
         }
         const errorMessage =
           err instanceof Error ? err.message : "Failed to load attendance";
@@ -323,12 +307,10 @@ function AppContent() {
       if (isBlockedError(err)) {
         setIsBlocked(true);
       } else {
-        // Load cached profile on failure
         try {
           const cached = await getProfile();
           if (cached.profile) setProfile(cached.profile);
         } catch {
-          // Ignore cache errors
         }
         setProfileError(
           err instanceof Error ? err.message : "Couldn't load profile details.",
