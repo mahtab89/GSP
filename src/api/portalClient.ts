@@ -27,7 +27,6 @@ export class PortalClient {
   };
 
   async login(credentials: Credentials): Promise<{ profile: StudentProfile; attendance: AttendanceData; availableSemesters: number[] }> {
-    // Step 1: GET login page from university
     const loginPage = await this.http.get<string>(`${PORTAL_URLS.login.replace("/Login.aspx", "")}/Login.aspx`, { timeout: 10000 });
 
     if (loginPage.status === 403) {
@@ -38,10 +37,8 @@ export class PortalClient {
       throw new Error(`Login page request failed: HTTP ${loginPage.status}`);
     }
 
-    // Step 2: Extract hidden fields
     const hiddenFields = extractHiddenFields(loginPage.body ?? "");
 
-    // Step 3: Build form data
     const formData: Record<string, string> = {
       ...hiddenFields,
       ScriptManager1: "UpdatePanel1|LoginButton",
@@ -53,7 +50,6 @@ export class PortalClient {
       LoginButton: "Login",
     };
 
-    // Step 4: POST to university (form-urlencoded with required headers)
     const cookiesFromGet = loginPage.setCookie?.join("; ") ?? "";
     const loginPost = await this.http.postForm<string>(`${PORTAL_URLS.login.replace("/Login.aspx", "")}/Login.aspx`, formData, {
       referer: `${PORTAL_URLS.login.replace("/Login.aspx", "")}/Login.aspx`,
@@ -77,23 +73,19 @@ export class PortalClient {
       throw new Error("Login failed: redirect was not returned");
     }
 
-    // Step 5: Get session cookies from university
     const universityCookies = loginPost.setCookie?.join("; ") ?? "";
 
-    // Step 6: Fetch all semesters attendance and profile from university
     const [profile, availableSemesters] = await Promise.all([
       this.fetchProfile(universityCookies),
       this.fetchAvailableSemesters(universityCookies),
     ]);
 
-    // Fetch all semesters attendance
     const attendanceMap: Record<number, AttendanceData> = {};
     for (const sem of availableSemesters) {
       const attendance = await this.fetchAttendance(universityCookies, sem);
       attendanceMap[sem] = attendance;
     }
 
-    // Save to local storage
     await saveProfile(profile);
     for (const [, attendance] of Object.entries(attendanceMap)) {
       await saveAttendance(attendance);
@@ -195,13 +187,11 @@ export class PortalClient {
       throw new Error("Not authenticated");
     }
 
-    // Try to get from local storage first
     const cachedProfileResult = await getProfile();
     if (cachedProfileResult.profile) {
       return cachedProfileResult.profile;
     }
 
-    // Fallback: fetch from university (shouldn't normally happen)
     const cookies = this.http.getCookieNames().join("; ");
     const profile = await this.fetchProfile(cookies);
     await saveProfile(profile);
@@ -213,13 +203,11 @@ export class PortalClient {
       throw new Error("Not authenticated");
     }
 
-    // Try to get from local storage first
     const cachedAttendanceResult = await getAttendance(semester);
     if (cachedAttendanceResult.attendance) {
       return cachedAttendanceResult.attendance;
     }
 
-    // Fallback: fetch from university
     const cookies = this.http.getCookieNames().join("; ");
     const attendance = await this.fetchAttendance(cookies, semester);
     await saveAttendance(attendance);
@@ -231,13 +219,11 @@ export class PortalClient {
       throw new Error("Not authenticated");
     }
 
-    // Get semesters from cached attendance
-    const cached = await getAttendance(3); // Use semester 3 as reference
+    const cached = await getAttendance(3); 
     if (cached.attendance) {
       return cached.attendance.availableSemesters;
     }
 
-    // Fallback: fetch from university
     const cookies = this.http.getCookieNames().join("; ");
     return this.fetchAvailableSemesters(cookies);
   }
