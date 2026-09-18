@@ -323,8 +323,6 @@ Attendance visualization and progress components.
   &nbsp;&nbsp;&nbsp;
    <img src="Screenshots/dashboard.jpeg" width="220">
   &nbsp;&nbsp;&nbsp;
-  <img src="Screenshots/Attendance.jpeg" width="220">
-  &nbsp;&nbsp;&nbsp;
   <img src="Screenshots/setting.jpeg" width="220">
 </p>
 <p align="center">
